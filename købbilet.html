@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Besøg os - Køb billet</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+</head>
+
+<header>
+
+    <div class="splash_desktop">
+        <img src="grafik/SVG/Artboard%201.svg">
+    </div>
+
+    <div class="splash_mobile">
+        <img src="grafik/SVG/mobil_header.svg">
+    </div>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="forside.html" class="active">Forside</a>
+        <a href="besogos.html">Besøg os</a>
+        <button class="dropdown-btn">Køb billet! ↓
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="%C3%A5bningstider.html">Åbningstider</a>
+            <a href="grupper.html">For grupper</a>
+            <a href="handicappede.html">For handicappede</a>
+            <a href="k%C3%B8bbilet.html">Køb billet!</a>
+        </div>
+        <a href="undervisning.html">Undervisning</a>
+        <button class="dropdown-btn">Studietrin ↓
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="3klasse.html">3-6 klasse</a>
+            <a href="7klasse.html">7-10 klasse</a>
+            <a href="ungdom.html">Ungdom og voksen udannelser</a>
+            <a href="forsvarets.html">Forsvarets uddannelser</a>
+            <a href="historie.html">Historiestuderende</a>
+
+        </div>
+        <a href="rute.html">Kontakt og rute</a>
+        <a href="Begivenheder.html">Begivenheder</a>
+    </div>
+
+    <div id="openbtn" class="openbtn hide">
+        <span onclick="openNav()">&#9776;</span>
+    </div>
+
+    <nav>
+        <ul>
+
+            <li><a href="forside.html">Forside</a></li>
+            <li class="dropdown"><a href="besogos.html">Besøg os</a>
+                <div class="dropdown-content">
+                    <a href="%C3%A5bningstider.html">Åbningstider</a>
+                    <a href="grupper.html">For grupper</a>
+                    <a href="handicappede.html">For handicappede</a>
+                    <a href="k%C3%B8bbilet.html">Køb billet!</a>
+                </div>
+            </li>
+            <li class="dropdown"><a href="undervisning.html">Undervisning</a>
+                <div class="dropdown-content">
+                    <a href="3klasse.html">3-6 klasse</a>
+                    <a href="7klasse.html">7-10 klasse</a>
+                    <a href="ungdom.html">Ungdom og voksenuddannelse</a>
+                    <a href="forsvarets.html">Forsvarets uddannelser</a>
+                    <a href="historie.html">Historiestuderende</a>
+
+                </div>
+            </li>
+            <li><a href="rute.html">Kontakt og rute</a></li>
+            <li><a href="Begivenheder.html">Begivenheder</a></li>
+        </ul>
+
+    </nav>
+
+
+
+
+</header>
+
+<body>
+
+    <h1 class="overskrift">Besøg os</h1>
+    <main class="indhold"></main>
+    <template>
+        <section class="ting">
+            <div></div>
+        </section>
+
+    </template>
+
+    <script>
+        let indhold;
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            async function getJson() {
+                let url = "http://yihu.dk/kea/Koldkrigsmuseet/wp-json/wp/v2/pages/55"
+                let jsonData = await fetch(url);
+                indhold = await jsonData.json();
+                console.log(indhold.content.rendered);
+                console.log(indhold);
+                visContent();
+            }
+
+            function visContent() {
+
+                let dest = document.querySelector(".indhold");
+                let temp = document.querySelector("template");
+                console.log(indhold.content.rendered);
+
+                let klon = temp.cloneNode(true).content;
+                klon.querySelector("div").innerHTML = indhold.content.rendered;
+                dest.appendChild(klon);
+
+
+            }
+
+            getJson();
+
+        }
+
+        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+    <footer>
+
+        <div class="some">
+            <a href="https://www.facebook.com/stevnsklint/"><img src="pics/fblogo.png" alt="facebook"></a>
+            <a href="https://www.instagram.com/oestsjaellandsmuseum/"><img src="pics/iglogo.png" alt="instagram"></a>
+        </div>
+        <div class="kontakt">
+            <p>Email: stevnsfort@oesm.dk</p>
+            <p>+45 56 50 28 06</p>
+            <p>Telefonen er åben mandag til fredag
+                fra kl. 9 til 15.</p>
+        </div>
+
+
+
+
+
+
+
+    </footer>
+
+
+</body></html>
